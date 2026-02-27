@@ -1,4 +1,4 @@
-import LastFMData from "./components/LastFMData.jsx";
+import LastfmData from "./components/LastfmData.jsx";
 
 function App() {
   const apiKey = import.meta.env.VITE_LASTFM_API_KEY;
@@ -11,7 +11,7 @@ function App() {
       </div>
       <h1>lastfm player</h1>
       <div>
-        <LastFMData username={username} apiKey={apiKey} />
+        <LastfmData username={username} apiKey={apiKey} />
       </div>
     </>
   );

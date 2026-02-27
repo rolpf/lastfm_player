@@ -2,29 +2,22 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 const LastfmData = ({ username, apiKey }) => {
-  //  const [lastfmData, updateLastfmData] = useState({});
+  const [lastfmData, updateLastfmData] = useState({});
 
-  // const fetchLastfmData = async () => {
-  //   const res = await fetch(
-  //     `https://ws.audioscrobbler.com/2.0/?method=user.getRecentTracks&user=${username}&api_key=${apiKey}&limit=1&nowplaying=true&format=json`,
-  //   );
-  //   return res.json();
-  // };
+  const fetchLastfmData = async () => {
+    const res = await fetch(
+      `https://ws.audioscrobbler.com/2.0/?method=user.getRecentTracks&user=${username}&api_key=${apiKey}&limit=1&nowplaying=true&format=json`,
+    );
+    return res.json();
+  };
 
-  const { data, status } = useQuery({
-    queryKey: ["lastfm"],
-    queryFn: () =>
-      fetch(
-        `https://ws.audioscrobbler.com/2.0/?method=user.getRecentTracks&user=${username}&api_key=${apiKey}&limit=1&nowplaying=true&format=json`,
-      ).then((res) => res.json()),
-  });
+  const { data, status } = useQuery("lastFM", fetchLastfmData);
 
   <div className="music-player">
     {status === "error" && <p>Error fetching Lastfm data</p>}
-    {status === "pending" && <p>Fetching Lastfm data...</p>}
-    {status === "success" && <p>caca</p>}
+    {status === "loading" && <p>Fetching Lastfm data...</p>}
+    {status === "success" && ((data) => updateLastfmData(data))}
   </div>;
-
   // useEffect(() => {
   //   const fetchData = async () => {
   //     await fetch(
